@@ -9,5 +9,3 @@ trap 'kill ${!}; exit_handler' SIGHUP SIGINT SIGQUIT SIGTERM
 
 /usr/lib/unifi/bin/unifi.init start
 sleep infinity
-
-exit 1

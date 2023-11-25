@@ -7,7 +7,7 @@ exit_handler() {
   exit ${?}
 }
 
-trap 'kill ${!}; exit_handler' SIGHUP SIGINT SIGQUIT SIGTERM
+trap 'exit_handler' SIGHUP SIGINT SIGQUIT SIGTERM
 
 echo "About to call start"
 /usr/lib/unifi/bin/unifi.init start

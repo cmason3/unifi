@@ -1,5 +1,7 @@
 FROM docker.io/library/ubuntu:18.04
 
+LABEL maintainer="Chris Mason <chris@netnix.org>"
+
 ARG DEBIAN_FRONTEND="noninteractive"
 
 ADD --chmod=644 https://dl.ui.com/unifi/unifi-repo.gpg /usr/share/keyrings/unifi-repo.gpg
@@ -32,5 +34,7 @@ chown -R unifi:unifi /var/run/unifi
 USER 99:99
 
 WORKDIR /usr/lib/unifi
+
+HEALTHCHECK --start-period=5m CMD curl --max-time 5 -kILs --fail https://localhost:8443 || exit 1
 
 ENTRYPOINT [ "/bin/sh", "-c", "/usr/lib/unifi/bin/unifi.init start && sleep infinity" ]

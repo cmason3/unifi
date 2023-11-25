@@ -2,7 +2,7 @@
 
 exit_handler() {
   /usr/lib/unifi/bin/unifi.init stop
-  exit ${?};
+  exit ${?}
 }
 
 trap 'kill ${!}; exit_handler' SIGHUP SIGINT SIGQUIT SIGTERM

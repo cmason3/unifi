@@ -14,7 +14,7 @@ sudo chown -R unifi:unifi /var/log/unifi
 ```
 
 ```
-sudo podman build --no-cache --pull -t unifi:latest https://raw.githubusercontent.com/cmason3/unifi/main/Dockerfile
+sudo podman build --no-cache --pull -t unifi:latest --format docker https://raw.githubusercontent.com/cmason3/unifi/main/Dockerfile
 
 sudo podman create --name unifi --tz=local --network host -v /var/lib/unifi:/var/lib/unifi:Z -v /var/log/unifi:/var/log/unifi:Z unifi:latest
 

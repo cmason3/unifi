@@ -11,6 +11,7 @@ trap "exit_handler" SIGHUP SIGINT SIGQUIT SIGTERM
 
 echo "About to call start"
 /usr/lib/unifi/bin/unifi.init start
-echo "Done start - about to sleep"
-sleep infinity
+
+sleep infinity &
+wait ${!}
 echo "dropped out of sleep"

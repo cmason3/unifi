@@ -8,6 +8,6 @@ exit_handler() {
 trap 'kill ${!}; exit_handler' SIGHUP SIGINT SIGQUIT SIGTERM
 
 /usr/lib/unifi/bin/unifi.init start
-wait
+sleep infinity
 
 exit 1

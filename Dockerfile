@@ -35,6 +35,8 @@ USER 99:99
 
 WORKDIR /usr/lib/unifi
 
+ADD --chmod=755 https://raw.githubusercontent.com/cmason3/unifi/main/entrypoint.sh /usr/lib/unifi/bin/entrypoint.sh
+
 HEALTHCHECK --start-period=5m CMD curl --max-time 5 -kILs --fail https://localhost:8443 || exit 1
 
-ENTRYPOINT [ "/bin/sh", "-c", "/usr/lib/unifi/bin/unifi.init start && sleep infinity" ]
+ENTRYPOINT [ "/usr/lib/unifi/bin/entrypoint.sh" ]

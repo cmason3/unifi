@@ -1,22 +1,22 @@
-FROM docker.io/library/ubuntu:18.04
+FROM docker.io/library/ubuntu:20.04
 
 LABEL maintainer="Chris Mason <chris@netnix.org>"
 
 ARG DEBIAN_FRONTEND="noninteractive"
 
 ADD --chmod=644 https://dl.ui.com/unifi/unifi-repo.gpg /usr/share/keyrings/unifi-repo.gpg
-ADD --chmod=644 https://www.mongodb.org/static/pgp/server-3.6.pub /usr/share/keyrings/mongodb-repo.gpg
+ADD --chmod=644 https://www.mongodb.org/static/pgp/server-4.4.pub /usr/share/keyrings/mongodb-repo.gpg
 
 RUN set -eux; \
 
 groupadd -g 99 -r unifi; \
-useradd -u 99 -g 99 -r unifi; \
+useradd -u 99 -g 99 -r -l unifi; \
 
 apt-get update; \
 apt-get install -y --no-install-recommends ca-certificates; \
 
 echo "deb [arch=amd64 signed-by=/usr/share/keyrings/unifi-repo.gpg] https://www.ui.com/downloads/unifi/debian stable ubiquiti" >/etc/apt/sources.list.d/100-ubnt-unifi.list; \
-echo "deb [arch=amd64 signed-by=/usr/share/keyrings/mongodb-repo.gpg] https://repo.mongodb.org/apt/ubuntu bionic/mongodb-org/3.6 multiverse" >>/etc/apt/sources.list.d/100-ubnt-unifi.list; \
+echo "deb [arch=amd64 signed-by=/usr/share/keyrings/mongodb-repo.gpg] https://repo.mongodb.org/apt/ubuntu focal/mongodb-org/4.4 multiverse" >/etc/apt/sources.list.d/100-mongodb-org.list; \
 
 apt-get update; \
 apt-get install -y --no-install-recommends unifi; \

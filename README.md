@@ -22,8 +22,8 @@ sudo podman create --name unifi --tz=local --network host \
   -v /var/log/unifi:/var/log/unifi:Z \
   unifi:latest
 
-sudo podman generate systemd -n --restart-policy=always \
-  unifi | sudo tee /etc/systemd/system/unifi.service 1>/dev/null
+sudo podman generate systemd -n --restart-policy=always unifi \
+  | sudo tee /etc/systemd/system/unifi.service 1>/dev/null
 
 sudo systemctl daemon-reload
 sudo systemctl enable --now unifi

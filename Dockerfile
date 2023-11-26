@@ -19,7 +19,7 @@ echo "deb [arch=amd64 signed-by=/usr/share/keyrings/unifi-repo.gpg] https://www.
 echo "deb [arch=amd64,arm64 signed-by=/usr/share/keyrings/mongodb-repo.gpg] https://repo.mongodb.org/apt/ubuntu focal/mongodb-org/4.4 multiverse" >/etc/apt/sources.list.d/100-mongodb-org.list; \
 
 apt-get update; \
-apt-get install -y --no-install-recommends -t focal/mongodb-org/4.4 mongodb-org; \
+apt-get install -y --no-install-recommends -t "focal/mongodb-org" mongodb-org; \
 apt-get install -y --no-install-recommends unifi; \
 
 apt-get clean; \

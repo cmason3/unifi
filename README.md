@@ -1,5 +1,5 @@
 <h1 align="center">UniFi Network Controller</h1>
-<h2 align="center">Raspberry Pi 5 using Podman</h2>
+<h2 align="center">Raspberry Pi 5 and Podman</h2>
 
 ```
 sudo groupadd -g 99 -r unifi

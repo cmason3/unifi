@@ -32,7 +32,7 @@ sudo systemctl daemon-reload
 sudo systemctl enable --now unifi
 ```
 
-If you want to use a Let's Encrypt TLS Certificate for your UniFi Network Controller then you can use the following commands to import the certificate into UniFi, although you will need to remember to renew it every 90 days (you can put this into a script and call it from the certbox cronjob using "--deploy-hook /etc/certbot-renew.sh"):
+If you want to use a Let's Encrypt TLS Certificate for your UniFi Network Controller then you can use the following commands to import the certificate into UniFi, although you will need to remember to renew it every 90 days (you can put this into a script and call it from the certbot cronjob using "--deploy-hook /etc/certbot-renew.sh"):
 
 ```
 sudo openssl pkcs12 -export -in "/etc/letsencrypt/live/${DOMAIN}/fullchain.pem" -inkey "/etc/letsencrypt/live/${DOMAIN}/privkey.pem" \

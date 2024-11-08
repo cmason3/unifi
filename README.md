@@ -31,3 +31,21 @@ sudo podman generate systemd -n --restart-policy=always unifi \
 sudo systemctl daemon-reload
 sudo systemctl enable --now unifi
 ```
+
+If you want to use a Let's Encrypt TLS Certificate for your UniFi Network Controller then you can use the following commands to import the certificate into UniFi, although you will need to remember to renew it every 90 days:
+
+```
+sudo openssl pkcs12 -export -in "/etc/letsencrypt/live/${DOMAIN}/fullchain.pem" -inkey "/etc/letsencrypt/live/${DOMAIN}/privkey.pem" \
+  -out "/var/lib/unifi/pkcs12.tmp" -passout pass:"aircontrolenterprise" -name "unifi"
+
+sudo chown unifi:unifi /var/lib/unifi/pkcs12.tmp
+
+sudo cp /var/lib/unifi/keystore /var/lib/unifi/keystore.bak
+
+sudo podman exec -it unifi keytool -delete -alias "unifi" -keystore "/var/lib/unifi/keystore" -deststorepass "aircontrolenterprise"
+
+sudo podman exec -it unifi keytool -importkeystore -srckeystore "/var/lib/unifi/pkcs12.tmp" -srcstoretype PKCS12 -srcstorepass "aircontrolenterprise" \
+  -destkeystore "/var/lib/unifi/keystore" -deststorepass "aircontrolenterprise" -destkeypass "aircontrolenterprise" -alias "unifi" -trustcacerts
+
+sudo systemctl restart unifi
+```

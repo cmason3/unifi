@@ -1,11 +1,10 @@
-FROM docker.io/library/ubuntu:20.04
+FROM docker.io/library/ubuntu:24.04
 
 LABEL maintainer="Chris Mason <chris@netnix.org>"
 
 ARG DEBIAN_FRONTEND="noninteractive"
 
 ADD --chmod=644 https://dl.ui.com/unifi/unifi-repo.gpg /usr/share/keyrings/unifi-repo.gpg
-ADD --chmod=644 https://www.mongodb.org/static/pgp/server-4.4.pub /usr/share/keyrings/mongodb-repo.gpg
 
 RUN set -eux; \
 
@@ -13,13 +12,15 @@ groupadd -g 99 -r unifi; \
 useradd -u 99 -g 99 -r -l unifi; \
 
 apt-get update; \
-apt-get install -y --no-install-recommends ca-certificates; \
+apt-get install -y --no-install-recommends gnupg curl ca-certificates; \
+
+curl -fsSL https://www.mongodb.org/static/pgp/server-8.0.asc | gpg -o /usr/share/keyrings/mongodb-repo.gpg --dearmour; \
 
 echo "deb [arch=amd64 signed-by=/usr/share/keyrings/unifi-repo.gpg] https://www.ui.com/downloads/unifi/debian stable ubiquiti" >/etc/apt/sources.list.d/100-ubnt-unifi.list; \
-echo "deb [arch=amd64,arm64 signed-by=/usr/share/keyrings/mongodb-repo.gpg] https://repo.mongodb.org/apt/ubuntu focal/mongodb-org/4.4 multiverse" >/etc/apt/sources.list.d/100-mongodb-org.list; \
+echo "deb [arch=amd64,arm64 signed-by=/usr/share/keyrings/mongodb-repo.gpg] https://repo.mongodb.org/apt/ubuntu noble/mongodb-org/8.0 multiverse" >/etc/apt/sources.list.d/100-mongodb-org.list; \
 
 apt-get update; \
-apt-get install -y --no-install-recommends -t "focal/mongodb-org" mongodb-org; \
+apt-get install -y --no-install-recommends mongodb-org; \
 apt-get install -y --no-install-recommends unifi; \
 
 apt-get clean; \

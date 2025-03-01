@@ -16,7 +16,7 @@ apt-get update; \
 apt-get install -y --no-install-recommends ca-certificates; \
 
 echo "deb [arch=amd64 signed-by=/usr/share/keyrings/unifi-repo.gpg] https://www.ui.com/downloads/unifi/debian stable ubiquiti" >/etc/apt/sources.list.d/100-ubnt-unifi.list; \
-echo "deb [arch=amd64,arm64 signed-by=/usr/share/keyrings/mongodb-repo.gpg ] https://repo.mongodb.org/apt/ubuntu noble/mongodb-org/8.0 multiverse" >/etc/apt/sources.list.d/100-mongodb-org.list; \
+echo "deb [arch=amd64,arm64 signed-by=/usr/share/keyrings/mongodb-repo.gpg] https://repo.mongodb.org/apt/ubuntu noble/mongodb-org/8.0 multiverse" >/etc/apt/sources.list.d/100-mongodb-org.list; \
 
 apt-get update; \
 apt-get install -y --no-install-recommends mongodb-org; \
